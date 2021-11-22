@@ -1,0 +1,122 @@
+			CREAR PROYECTO NODE.JS
+
+Ingresar a la carpeta donde queremos instar node.js
+
+
+---------------------------------- COMANDOS PARA CREAR PROYECTO DE NODE.JS ----------------------------------
+
+--Comando--> npm init
+--Descrip--> Inicia el proyecto node.js
+--> Nos creara una carpeta con el nombre que le dimos al proyecto node.js
+--> Dentro de la carpeta nos creara un archivo llamado package.js dentro del cual tendremos informacion de nuestro proyecto como el nombre, licencia,
+	ademas de las dependencias que se instalen.
+
+
+---------------------------------- LIBRERIAS BASICAS PARA LA CREACION DE UNA API ---------------------------------
+
+--Comando--> npm install --save express
+--Descrip--> Con miles de métodos de programa de utilidad HTTP y middleware a su disposición, la creación de una API sólida es rápida y sencilla.
+
+--Comando--> npm install --save body-parser
+--Descrip--> Comvierte el contenido de una peticion a Json para poder usarse correctamente dentro de node.js
+
+--Comando--> npm install --save mongoose
+--Descrip--> Paquete que contiene variedad de metodos que nos ayudaran a trabajar con mongoDB, al hacer peticiones a la base de datos
+
+--Comando--> npm install --save connect-multiparty
+--Descrip--> Nos permitira enviar datos de tipo archivo
+
+--Comando--> npm install --save validator
+--Descrip--> Nos permitira validar informacion (de los formularios por ejemplo), para conprovar los tipos de datos recividos en la petición y poder usarlos en node.js
+
+--Comando--> npm install --save-dev nodemon
+--Descrip--> Para que el codigo se ejecute o actualice automaticamente
+--Descrip--> -dev es para que el comando funcione solo mientras el proyecto este en desaroollo
+--Descript--> Para este comando iremos al documento package.json, buscaremos "scripts" y colocaremos "start": "nodemon index.js",
+
+--Comando--> 
+--Descrip-->
+
+---------------------------------- CONECTAR NODE.JS CON MONGOO_DB ---------------------------------
+
+1. Crear el archivo index.js
+	--> Documento principal que contendra todo, desde la conneccion a la base de datos hasta las peticiones que se usaran a la base de datos y el cliente.
+ 	--> Todo lo siguiente ira dentro de este archivo
+
+2. Colocar 'use strict' en el documento
+	--> Para un uso mas stricto del lenguaje de programacion -- se utilia como buena practica
+
+3. Cargar el modulo de mongoose
+	--> var mongoose = require('mongoose');
+
+4. Hacer la coneccion a la base de datos
+
+	mongoose.Promise = global.Promise; 
+	--> para evitar problemas a la hora de connectarnos a la base de datos, es bueno colocarlo
+	mongoose.connect(urlMongo, opciones).then(()=>{
+
+    	})
+
+	--> urlMongo = 'mongodb://localhost:27017/api_rest_blog'
+		--> 27017 = Es el puerto por defecto ue usa mongoose.
+		--> api_rest_blog = Nombre de la base de datos que queremos
+
+	--> Opciones = se puede coloar  {userNewUrlParser: true}
+		--> Nos permite usar la nueva sintaxis o nueva funcionalidades que inliye moongose para usar nuevo metodos, etc.
+	
+	mongoose.Promise = global.Promise;	
+	mongoose.connect('mongodb://localhost:27017/api_rest_blog', {useNewUrlParser: true})
+                .then(()=>{ 
+			console.log('La conexión a la base de datos se ha realizado bien!!');
+   	     	});
+
+5. Si se esta usando nodemon(paquete de refresh automatic), usar el comando npm start en la consola para estar viendo las actualizaciones en el codigo
+
+
+
+
+---------------------------------- SERVIDOR WEB CON EXPRESS---------------------------------
+
+	Crear nuevo fichero en la misma direccion que el index.js, llamado app.js
+		--> Le agregamos el 'use strict' al nuevo fichero
+
+
+--> En este documento
+	-->Se  cargaran los modulos de node para crear servidor
+	-->se Ejecutara express (http)
+	-->Se cragran ficheros rutas
+	-->Middlewares
+	-->CORS
+	-->Añadir prfijos a rutas
+	-->Esportar modulo (fichero actual)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
