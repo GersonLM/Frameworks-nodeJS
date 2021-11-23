@@ -75,7 +75,7 @@ Ingresar a la carpeta donde queremos instar node.js
 
 
 
----------------------------------- SERVIDOR WEB CON EXPRESS---------------------------------
+---------------------------------- SERVIDOR WEB CON EXPRESS ---------------------------------
 
 	Crear nuevo fichero en la misma direccion que el index.js, llamado app.js
 		--> Le agregamos el 'use strict' al nuevo fichero
@@ -92,6 +92,12 @@ Ingresar a la carpeta donde queremos instar node.js
 
 
 
+---------------------------------- CREACION DEL BACK-END ---------------------------------
+
+	Mediante el modelo MVC
+	-->M --> Modelo: una clase que nos da el molde para crear diferentes objetos usando ese modelo.
+	     --> articulos, esquema, propiedades, esrtuctura del docuento
+	     --> Desde aqui nos comunicamos con la base de datos
 
 
 
