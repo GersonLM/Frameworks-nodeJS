@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var schema = mongoose.schema;
 
 var articleSchema = Schema({
-    titulo: String,
+    title: String,
     content: String,
     date: {type: Date, default: Date.now},
     image: String
