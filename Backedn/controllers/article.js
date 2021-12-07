@@ -273,7 +273,59 @@ const controller = {
         }
 
         
-    }// end upload
+    },// end upload
+
+    getImage: (req, res)=>{
+
+        let file = req.params.image;
+        let path_file = './upload/articles/'+file;
+
+        console.log(fs.existsSync(path_file))
+
+        if(fs.existsSync(path_file)){
+            return res.sendFile(path.resolve(path_file));
+        }else{
+            return res.status(200).send({
+                status: 'ERROR',
+                message: 'La imagen no existe'
+            });
+        }
+    },
+
+    search: (req, res) => {
+        //sacar el string a buscar
+        let searchString = req.params.search;
+
+        //find or
+        Article.find({
+            "$or": [
+                {"title": {"$regex": searchString,"$options": "i"}},
+                {"content": {"$regex": searchString, "$options": "i"}}
+            ]
+        })
+        .sort([['date', 'descending']])
+        .exec((err, articles) => {
+            if(err){
+                return res.status(500).send({
+                    status: 'error',
+                    message: 'Error en la oeticion',
+                    err
+                });
+            }
+
+            if(!articles || articles.length <= 0){
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'Articulo no econtrado'
+                });
+            }
+
+            return res.status(200).send({
+                status: 'SUCCES',
+                articles
+            });
+        })    
+    }
 
 }; //end controllers
 

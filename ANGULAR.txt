@@ -1,0 +1,16 @@
+Todo en angular es un componente
+
+--> Componente es un trozo de pantalla de la applicacion
+
+un proyeco con angular se crea con muchos componentes
+
+------Un componente es una clase de js
+
+{{ }} --doble llave de interpolacion
+
+
+
+---> CREAR UN COMPONENTE con angular / cli
+ 	ng g component components/peliculas
+
+
