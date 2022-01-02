@@ -1,4 +1,63 @@
-<h1 class="subheader">Peliculas</h1>
+<app-slider [title_slider]="'Peliculas'" [size]="'small'"></app-slider>
 
-<h2>{{titulo}}</h2>
-<Button (click)="cambiarTitulo()">Pulsame</Button>
+<div class="center">
+    <section id="content">
+
+        <div class="favorita" *ngIf="favorita">
+            <h2 class="subheader">
+                Pelicula Favorita
+            </h2>
+            <h4>
+                <!-- {{favorita.title | uppercase}}  todo mayucula-->
+                {{favorita.title | lowercase}} <!--  Todo en minuscula -->
+            </h4>
+            <h4>
+                {{favorita.year | espar}}
+            </h4>
+            <h5>
+                {{this.fecha |date: 'dd/MM/yyyy'}}
+            </h5>
+        </div>
+
+        <h1 class="subheader">Peliculas</h1>
+
+        <!-- <h2>{{titulo}}</h2>
+        <Button (click)="cambiarTitulo()">Pulsame</Button>
+
+        <br>
+        <hr>
+        <br>
+
+        <h2>Mostrar primera Pelicula</h2>
+        <h3>{{peliculas[0].title}}</h3>
+
+        <hr>
+
+        <h2>Numero de peliculas</h2>
+        <div *ngIf="peliculas.length <= 3">
+            Hay pocas Peliculas
+        </div>
+
+        <div *ngIf="peliculas.length > 3">
+            Hay muchas Peliculas
+        </div>
+
+        <h3>{{peliculas.length}}</h3>
+
+        <hr> 
+
+        <h2 class="subheader">Listado Peliculas</h2> -->
+
+        <div id="articles" *ngIf="peliculas">
+
+            <div *ngFor="let pelicula of peliculas; let i = index;">
+                <app-pelicula [pelicula]="pelicula" (MarcarFavorita)="mostrarFavorita($event)">
+                </app-pelicula>
+            </div>
+            
+        </div>
+
+    </section>
+
+    <app-sidebar></app-sidebar>
+</div>

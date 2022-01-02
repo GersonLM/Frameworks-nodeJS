@@ -1,1 +1,24 @@
-<h1 class="subheader">Página de pruebas</h1>
+<app-slider [title_slider]="'Página'"
+            [size]="'small'"
+></app-slider>
+
+<div class="center">
+    <section id="content">
+
+        <h1 class="subheader">Página de pruebas</h1>
+
+        <div *ngIf="nombreParametro && apellidos">
+            <h2>Nombre por URL: {{nombreParametro}}</h2>
+            <h2>Apellido por URL: {{apellidos}}</h2>
+        </div>
+
+        <div *ngIf="!nombreParametro || !apellidos">
+            <h2>No hay parametros por la URL</h2>
+        </div>
+
+        <button (click)="redireccion()">Ponme nombre y apellidos</button>
+
+    </section>
+
+    <app-sidebar></app-sidebar>
+</div>

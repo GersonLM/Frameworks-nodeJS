@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing, appRoutingProviders } from './app.routing';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component'; // se utiliza el nombre de la clase para importarlo
 import { MiComponente } from './components/mi-componente/mi-componente.component';
@@ -15,6 +17,8 @@ import { BlogComponent } from './components/blog/blog.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { PaginaComponent } from './components/pagina/pagina.component';
 import { ErrorComponent } from './components/error/error.component';
+import { PeliculaComponent } from './components/pelicula/pelicula.component';
+import { EsParPipe } from './pipes/espar.pipe';
 
 @NgModule({
   declarations: [ //cargamos los modulos importados
@@ -30,11 +34,15 @@ import { ErrorComponent } from './components/error/error.component';
     BlogComponent,
     FormularioComponent,
     PaginaComponent,
-    ErrorComponent
+    ErrorComponent,
+    PeliculaComponent,
+    EsParPipe
   ],
   imports: [  // cargamos los ,odulos de la apliacaion
     BrowserModule,
-    routing
+    routing,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [appRoutingProviders], // cargamos los servicios
   bootstrap: [AppComponent] // indicamos el componenete inicial, sobre el cual se cargara la aplicaicon
