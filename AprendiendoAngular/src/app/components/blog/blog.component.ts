@@ -13,7 +13,11 @@ export class BlogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this._articleService.pruebas());
+    this._articleService.getArticles().subscribe(
+      response => {
+        console.log(response);
+      }
+    )
   }
 
 }
