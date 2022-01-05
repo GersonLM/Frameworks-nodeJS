@@ -21,7 +21,15 @@ export class ArticleService {
         return "Soy el servicio de articulos para el blpg";
     }
 
-    getArticles():Observable<any>{
-        return this._http.get(this.url+'articles');
+    getArticles(last:any = null):Observable<any>{
+
+        let articles = 'articles';
+        
+        if(last != null){
+            articles = 'articles/true'
+        }
+
+        return this._http.get(this.url + articles);
+        
     }
 }

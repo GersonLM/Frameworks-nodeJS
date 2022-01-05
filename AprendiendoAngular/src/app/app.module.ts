@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { routing, appRoutingProviders } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MomentModule } from 'ngx-moment';
+
 
 import { AppComponent } from './app.component'; // se utiliza el nombre de la clase para importarlo
 import { MiComponente } from './components/mi-componente/mi-componente.component';
@@ -19,6 +21,8 @@ import { PaginaComponent } from './components/pagina/pagina.component';
 import { ErrorComponent } from './components/error/error.component';
 import { PeliculaComponent } from './components/pelicula/pelicula.component';
 import { EsParPipe } from './pipes/espar.pipe';
+import { ArticlesComponent } from './components/articles/articles.component';
+import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
   declarations: [ //cargamos los modulos importados
@@ -36,13 +40,16 @@ import { EsParPipe } from './pipes/espar.pipe';
     PaginaComponent,
     ErrorComponent,
     PeliculaComponent,
-    EsParPipe
+    EsParPipe,
+    ArticlesComponent,
+    ArticleComponent
   ],
   imports: [  // cargamos los ,odulos de la apliacaion
     BrowserModule,
     routing,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentModule
   ],
   providers: [appRoutingProviders], // cargamos los servicios
   bootstrap: [AppComponent] // indicamos el componenete inicial, sobre el cual se cargara la aplicaicon
