@@ -196,11 +196,35 @@ body {
     border: none;
     cursor: pointer;
     transition: 0.3s all;
+    text-align: center;
 }
 
 .btn-succes {
     background-color: rgb(16, 143, 12);
 }
+
+.btn-warging {
+    background-color: rgb(218, 165, 6);
+    color: white !important;
+    text-decoration: none;
+    margin-right: 20px;
+}
+.btn-danger {
+    background-color: red;
+    color: white !important;
+    text-decoration: none;
+}
+.buttons {
+    display:flex;
+    margin-top: 30px;
+    justify-content: center;
+    
+}
+/* .btn-warging:hover, 
+.btn-danger:hover {
+    transition: all 300ms;
+    opacity: 0.8;
+} */
 
 .btn:hover {
     background-color: #444;
