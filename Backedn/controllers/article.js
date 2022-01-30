@@ -27,31 +27,36 @@ const controller = {
     save: (req, res) => {
         //recoger parametros por post
         let params = req.body;
-        
+
         //validar datos (validaror)
-        try{
+        try {
             var validate_title = !validator.isEmpty(params.title);
             var validate_content = !validator.isEmpty(params.content);
-        }catch(err){
+        } catch (err) {
             return res.status(200).send({
                 status: 'error',
                 mensaje: 'Faltan datos por enviar !!!'
-            });  
+            });
         }
 
-        if(validate_title && validate_content){
+        if (validate_title && validate_content) {
             //crear el objeto guardar
             let article = new Article();
 
             //asignar valores
             article.title = params.title;
             article.content = params.content;
-            article.image = null;
+
+            if (params.image) {
+                article.image = params.image;
+            } else {
+                article.image = null;
+            }
 
             //guardar el articulo
-            article.save((error, articleStored)=>{
+            article.save((error, articleStored) => {
 
-                if(error || !articleStored){
+                if (error || !articleStored) {
                     return res.status(404).send({
                         status: 'error',
                         message: 'El articulo no se ha guardado'
@@ -66,38 +71,38 @@ const controller = {
 
 
             });
-            
-        }else {
+
+        } else {
             return res.status(200).send({
                 status: 'error',
                 mensaje: 'Los datos no son validos !!!'
-            }); 
+            });
         }
 
-        
+
     },
 
     getArticles: (req, res) => {
 
         let query = Article.find({});
         let last = req.params.last;
-        
-        if(last || last != undefined){
+
+        if (last || last != undefined) {
             query.limit(5);
         }
 
 
         //find
-        query.sort('-_id').exec((error, articles)=>{
+        query.sort('-_id').exec((error, articles) => {
 
-            if(error){
+            if (error) {
                 return res.status(500).send({
                     status: 'error',
                     mensaje: 'Error al devolver los Articulos !!!'
                 });
             }
 
-            if(!articles){
+            if (!articles) {
                 return res.status(404).send({
                     status: 'error',
                     mensaje: 'No hay articulos para mostrar !!!'
@@ -111,22 +116,22 @@ const controller = {
         });
     },//end getarticles
 
-    getArticle: (req, res)=>{
+    getArticle: (req, res) => {
 
         //recoger el id de la url
         let articleId = req.params.id;
 
         //comprobar el articulo
-        if(!articleId || articleId == null || articleId == undefined){
+        if (!articleId || articleId == null || articleId == undefined) {
             return res.status(404).send({
                 status: 'error',
                 mensaje: 'No existe el articulo !!!'
             });
         }
         //buscar el  articlo
-        Article.findById(articleId, (err, article)=>{
+        Article.findById(articleId, (err, article) => {
 
-            if(err || !article){
+            if (err || !article) {
                 return res.status(404).send({
                     status: 'error',
                     mensaje: 'No existe el articulo !!!'
@@ -139,38 +144,38 @@ const controller = {
                 article
             });
         })
-        
+
     },
 
     update: (req, res) => {
 
         //recoger id del articulo por url
-        let articleId = req. params.id;
+        let articleId = req.params.id;
 
         //recoger los datos que llegar por put
         let params = req.body;
 
         //validar los datos
-        try{
+        try {
             var validate_title = !validator.isEmpty(params.title);
             var validate_content = !validator.isEmpty(params.content);
-        }catch(error){
+        } catch (error) {
             return res.status(200).send({
                 status: 'error',
                 mensaje: 'Faltan datos por enviar!!!'
             });
         }
 
-        if(validate_title && validate_content){
-              //find and update
-            Article.findOneAndUpdate({_id: articleId}, params, {new:true}, (err, articleUpdate)=>{
-                if(err){
+        if (validate_title && validate_content) {
+            //find and update
+            Article.findOneAndUpdate({ _id: articleId }, params, { new: true }, (err, articleUpdate) => {
+                if (err) {
                     return res.status(500).send({
                         status: 'error',
                         mensaje: 'Error al actualizar'
                     });
                 }
-                if(!articleUpdate){
+                if (!articleUpdate) {
                     return res.status(404).send({
                         status: 'eNo exixte el articulo!!!'
                     });
@@ -180,7 +185,7 @@ const controller = {
                     article: articleUpdate
                 });
             });
-        }else{
+        } else {
             return res.status(200).send({
                 status: 'error',
                 mensaje: 'Validacion no es correcta!!!'
@@ -194,15 +199,15 @@ const controller = {
         let articleId = req.params.id;
 
         //find and delete
-        Article.findOneAndDelete({_id: articleId}, (err, articleRemoved)=>{
-            if(err){
+        Article.findOneAndDelete({ _id: articleId }, (err, articleRemoved) => {
+            if (err) {
                 return res.status(200).send({
                     status: 'error',
                     mensaje: 'Error al eliminar el articulo!!!'
                 });
             }
 
-            if(!articleRemoved){
+            if (!articleRemoved) {
                 return res.status(200).send({
                     status: 'error',
                     mensaje: 'No se ha eliminado el articulo, posiblemente no exista!!!'
@@ -215,13 +220,13 @@ const controller = {
         });
     },
 
-    upload: (req, res) =>{
+    upload: (req, res) => {
         //configurar el modulo del connect multiparty router/article.js
 
         //Recoger el fichero de la peticion
         let file_name = 'Imagen no subida...';
 
-        if(!req.files){
+        if (!req.files) {
             return res.status(404).send({
                 status: 'Error',
                 message: file_name
@@ -237,54 +242,64 @@ const controller = {
 
         //Nombre del archivo
         let fileName = file_split[2];
-        
+
         //Extencion del fichero
         let extencion_split = fileName.split('\.');
         let file_ext = extencion_split[1];
 
         // comparar la extension, solo imagenes, si es invalido borrar el fichero.
-        if(file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'gif'){
+        if (file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'gif') {
             //borrar el arhico subido
-            fs.unlink(file_path, (err)=>{
+            fs.unlink(file_path, (err) => {
                 return res.status(200).send({
                     status: 'Error',
                     message: 'La extencion de la imagen no es valida'
                 });
             });
 
-        }else{
-            //si todo es valido
-            let articleId = req.params.id
-            Article.findOneAndUpdate({_id: articleId}, {image: fileName}, {new: true}, (err, articleUpdate)=>{
-                
-                if(err || !articleUpdate){
-                    return res.status(500).send({
-                        status: 'Error',
-                        message: 'Error al giuardar la imagen del articulo'
+        } else {
+            //si todo es valido, sacndo id de la Url
+            let articleId = req.params.id;
+
+            if (articleId) {
+
+                Article.findOneAndUpdate({ _id: articleId }, { image: fileName }, { new: true }, (err, articleUpdate) => {
+
+                    if (err || !articleUpdate) {
+                        return res.status(500).send({
+                            status: 'Error',
+                            message: 'Error al guardar la imagen del articulo'
+                        });
+                    }
+
+                    return res.status(200).send({
+                        status: 'Sucees',
+                        article: articleUpdate
                     });
-                }
-                
+                });
+                //buscar el articulo, asignarle el nombre de la imgen y actualizarlo.
+            } else {
                 return res.status(200).send({
                     status: 'Sucees',
-                    article: articleUpdate
+                    image: fileName
                 });
-            });
-        //buscar el articulo, asignarle el nombre de la imgen y actualizarlo.
+            }
+
         }
 
-        
+
     },// end upload
 
-    getImage: (req, res)=>{
+    getImage: (req, res) => {
 
         let file = req.params.image;
-        let path_file = './upload/articles/'+file;
+        let path_file = './upload/articles/' + file;
 
         console.log(fs.existsSync(path_file))
 
-        if(fs.existsSync(path_file)){
+        if (fs.existsSync(path_file)) {
             return res.sendFile(path.resolve(path_file));
-        }else{
+        } else {
             return res.status(200).send({
                 status: 'ERROR',
                 message: 'La imagen no existe'
@@ -299,32 +314,32 @@ const controller = {
         //find or
         Article.find({
             "$or": [
-                {"title": {"$regex": searchString,"$options": "i"}},
-                {"content": {"$regex": searchString, "$options": "i"}}
+                { "title": { "$regex": searchString, "$options": "i" } },
+                { "content": { "$regex": searchString, "$options": "i" } }
             ]
         })
-        .sort([['date', 'descending']])
-        .exec((err, articles) => {
-            if(err){
-                return res.status(500).send({
-                    status: 'error',
-                    message: 'Error en la oeticion',
-                    err
-                });
-            }
+            .sort([['date', 'descending']])
+            .exec((err, articles) => {
+                if (err) {
+                    return res.status(500).send({
+                        status: 'error',
+                        message: 'Error en la peticion',
+                        err
+                    });
+                }
 
-            if(!articles || articles.length <= 0){
-                return res.status(404).send({
-                    status: 'error',
-                    message: 'Articulo no econtrado'
-                });
-            }
+                if (!articles || articles.length <= 0) {
+                    return res.status(404).send({
+                        status: 'error',
+                        message: 'Articulo no encontrado'
+                    });
+                }
 
-            return res.status(200).send({
-                status: 'SUCCES',
-                articles
-            });
-        })    
+                return res.status(200).send({
+                    status: 'SUCCES',
+                    articles
+                });
+            })
     }
 
 }; //end controllers

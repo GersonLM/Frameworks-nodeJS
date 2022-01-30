@@ -37,4 +37,26 @@ export class ArticleService {
     getArticle(articleId:any): Observable<any>{
         return this._http.get(this.url + 'article/' + articleId)
     }
+
+    search(searchString:any):Observable<any>{
+        return this._http.get(this.url + 'search/' + searchString)
+    }
+
+    create(article:Article):Observable<any>{
+        let params = JSON.stringify(article);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+        return this._http.post(this.url + 'save', params, {headers: headers});
+    }
+
+    delete(articleId:any):Observable<any>{
+        return this._http.delete(this.url + 'article-delete/'+ articleId)
+    }
+
+    update(articleId:any, article:Article):Observable<any>{
+        let params = JSON.stringify(article);
+        let headers = new HttpHeaders().set('Content-Type','application/json');
+
+        return this._http.put(this.url + 'article-update/'+articleId, params, {headers: headers});
+    }
 }

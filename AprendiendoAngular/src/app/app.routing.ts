@@ -12,6 +12,9 @@ import { PeliculasComponent } from "./components/peliculas/peliculas.component";
 import { PaginaComponent } from "./components/pagina/pagina.component";
 import { ErrorComponent } from "./components/error/error.component";
 import { ArticleComponent } from "./components/article/article.component";
+import { SearchComponent } from "./components/search/search.component";
+import { ArticleNewComponent } from "./components/article-new/article-new.component";
+import { ArticleEditComponent } from "./components/article-edit/article-edit.component";
 
 //Array de rutas
 const appRoutes: Routes = [
@@ -23,6 +26,9 @@ const appRoutes: Routes = [
     {path: 'peliculas', component: PeliculasComponent},
     {path: 'pagina-de-pruebas', component: PaginaComponent},
     {path: 'pagina-de-pruebas/:name/:apellidos', component: PaginaComponent},
+    {path: 'buscar/:search', component: SearchComponent},
+    {path: 'blog/crear', component: ArticleNewComponent},
+    {path: 'blog/editar/:id', component: ArticleEditComponent},
     {path: '**', component: ErrorComponent}
 ];
 

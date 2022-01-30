@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Pelicula } from 'src/app/models/pelicula';
+
 @Component({
   selector: 'app-pelicula',
   templateUrl: './pelicula.component.html',

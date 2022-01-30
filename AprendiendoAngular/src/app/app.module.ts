@@ -4,7 +4,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'ngx-moment';
-
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 import { AppComponent } from './app.component'; // se utiliza el nombre de la clase para importarlo
 import { MiComponente } from './components/mi-componente/mi-componente.component';
@@ -23,6 +23,9 @@ import { PeliculaComponent } from './components/pelicula/pelicula.component';
 import { EsParPipe } from './pipes/espar.pipe';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticleComponent } from './components/article/article.component';
+import { SearchComponent } from './components/search/search.component';
+import { ArticleNewComponent } from './components/article-new/article-new.component';
+import { ArticleEditComponent } from './components/article-edit/article-edit.component';
 
 @NgModule({
   declarations: [ //cargamos los modulos importados
@@ -42,9 +45,14 @@ import { ArticleComponent } from './components/article/article.component';
     PeliculaComponent,
     EsParPipe,
     ArticlesComponent,
-    ArticleComponent
+    ArticleComponent,
+    SearchComponent,
+    ArticleNewComponent,
+    ArticleEditComponent,
+    // AngularFileUploaderModule
   ],
   imports: [  // cargamos los ,odulos de la apliacaion
+    AngularFileUploaderModule,
     BrowserModule,
     routing,
     FormsModule,
